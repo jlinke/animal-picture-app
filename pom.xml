@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.wohlgemuth</groupId>
-    <artifactId>anime-picture-app</artifactId>
+    <artifactId>animal-picture-app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>anime-picture-app</name>
-    <description>anime-picture-app</description>
+    <name>animal-picture-app</name>
+    <description>animal-picture-app</description>
     <url/>
     <licenses>
         <license/>

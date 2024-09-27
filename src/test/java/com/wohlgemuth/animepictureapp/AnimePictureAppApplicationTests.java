@@ -1,4 +1,4 @@
-package com.wohlgemuth.animepictureapp;
+package com.wohlgemuth.animalpictureapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
