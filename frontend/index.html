@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Image</title>
+</head>
+<body>
+
+<h1>Animal Image Viewer</h1>
+
+<select name="animalType" id="animalType">
+    <option value="cat">Cat</option>
+    <option value="dog">Dog</option>
+    <option value="bear">Bear</option>
+</select>
+
+<button id="fetchImageButton">Fetch Last Animal Image</button>
+<br>
+<img id="animalImage" alt="Animal Picture" style="margin-top: 20px; max-width: 400px;">
+
+<script>
+    document.getElementById('fetchImageButton').addEventListener('click', function () {
+        const animalType = document.getElementById("animalType").value;
+        fetch('http://localhost:8080/api/animals/last/' + animalType)
+            .then(response => {
+                if (response.ok) {
+                    return response.blob();
+                } else {
+                    throw new Error('Failed to fetch image');
+                }
+            })
+            .then(imageBlob => {
+                // Create a local URL for the image blob and set it as the img src
+                const imageUrl = URL.createObjectURL(imageBlob);
+                document.getElementById('animalImage').src = imageUrl;
+            })
+            .catch(error => {
+                console.error('Error fetching the image:', error);
+            });
+    });
+</script>
+
+</body>
+</html>

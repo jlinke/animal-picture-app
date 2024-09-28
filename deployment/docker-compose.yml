@@ -1,0 +1,53 @@
+version: '3'
+services:
+  animal-picture-app:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    container_name: animal-picture-app
+    volumes:
+      - ../target:/target
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/animaldb
+      SPRING_DATASOURCE_USERNAME: animaluser
+      SPRING_DATASOURCE_PASSWORD: animalpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    networks:
+      - app-network
+
+  animal-picture-frontend:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ../frontend:/usr/share/nginx/html
+    depends_on:
+      - animal-picture-app
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: animaldb
+      MYSQL_USER: animaluser
+      MYSQL_PASSWORD: animalpassword
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+volumes:
+  mysql-data:
+
+networks:
+  app-network:
+    driver: bridge
